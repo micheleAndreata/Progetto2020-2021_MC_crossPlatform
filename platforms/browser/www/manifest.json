@@ -1,11 +1,11 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "HelloCordova",
-  "short_name": "HelloCordova",
+  "name": "Accordo",
+  "short_name": "Accordo",
   "version": "io.cordova.hellocordova",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
-  "author": "Apache Cordova Team",
+  "description": "Il sistema “accordo” presenta un’unica bacheca di discussione a cui hanno accesso tutti gli utenti. \r\n        La bacheca è divisa in vari canali. Ogni utente può leggere e scrivere su ogni canalemessaggi di testo, \r\n        immagini e può condividere la propria posizione. Ogni utente può creare nuovi canali.",
+  "author": "Accordo Team",
   "icons": [],
   "start_url": "index.html"
 }
