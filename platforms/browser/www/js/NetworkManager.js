@@ -1,6 +1,6 @@
 // variabili globali
 var baseURL = "https://ewserver.di.unimi.it/mobicomp/accordo/";
-
+var sidTemp = 'reFG9u0a2BWjU7Jg';
 
 // funzione di registrazione utente
 function register() { 
@@ -32,6 +32,22 @@ function getProfile(sid) {
             sid: sid
         }),
         dataType: 'json',
+        success: function (result) {
+            console.log(result);
+        },
+        error: function (error) {
+            console.error(error);
+        }
+    })
+}
+
+function setProfile(jsonContent) {
+    setProfileURL = baseURL + "setProfile.php";
+
+    $.ajax({
+        method: 'post',
+        url: setProfileURL,
+        data: jsonContent,
         success: function (result) {
             console.log(result);
         },

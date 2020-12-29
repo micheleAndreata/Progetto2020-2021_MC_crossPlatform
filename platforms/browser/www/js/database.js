@@ -2,6 +2,14 @@ $(function () {
     document.addEventListener("deviceready", onDeviceReady, false);
 })
 
+function successCallback() {
+    console.log("ok");
+}
+
+function errorCallback(){
+    console.error(error)
+}
+
 // function onDeviceReady() {
 
 //     // window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default'}, function(db) {
@@ -32,26 +40,21 @@ $(function () {
 
 // Cordova is ready
 function onDeviceReady() {
-    console.log("device ready");
-    db = window.sqlitePlugin.openDatabase({ name: 'my.db', location: 'default' }, function (db) {
+    // console.log("device ready");
+    // db = window.sqlitePlugin.openDatabase({ name: 'my.db', location: 'default' }, function (db) {
 
-        register();
+    //     register();
         
     
-    }, function (error) {
-        console.log('Open database ERROR: ' + JSON.stringify(error));
-    });
-
+    // }, function (error) {
+    //     console.log('Open database ERROR: ' + JSON.stringify(error));
+    // });
+    // setProfile(JSON.stringify({
+    //     sid : 'reFG9u0a2BWjU7Jg',
+    //     name : 'pippo'
+    // }));
+    getProfile('reFG9u0a2BWjU7Jg');
 }
-
-function successCallback() {
-    console.log("ok");
-}
-
-function errorCallback(){
-    console.error(error)
-}
-
 
 function setTableProfile(sid) {
     
@@ -70,7 +73,6 @@ function setTableProfile(sid) {
     }, function() {
         console.log('transaction setTableProfile ok');
     });
-    checkSID();
 }
 
 
