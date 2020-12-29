@@ -72,6 +72,31 @@ function setTableProfile(sid) {
 }
 
 
+function updateTableProfile(jsonObject) {
+    let sid = jsonObject.sid;
+    let uid = jsonObject.uid;
+    let nome = jsonObject.name;
+    let picture = jsonObject.picture;
+    
+    db.transaction(function (tx) {
+
+        var query = "UPDATE prifile SET uid = ?, nome = ?, picture = ? WHERE sid = ?";
+
+        tx.executeSql(query, [uid, nome, picture, sid], function(tx, res) {
+            // console.log("insertId: " + res.insertId);
+            console.log("rowsAffected: " + res.rowsAffected);
+        },
+        function(tx, error) {
+            console.log('UPDATE error: ' + error.message);
+        });
+    }, function(error) {
+        console.log('transaction error: ' + error.message);
+    }, function() {
+        console.log('transaction ok');
+    });
+
+}
+
 function checkSID() {
     db.transaction(function (tx) {
 
