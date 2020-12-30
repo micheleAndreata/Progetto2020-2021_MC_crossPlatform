@@ -41,16 +41,9 @@ function errorCallback(){
 // Cordova is ready
 function onDeviceReady() {
     
-    // db = window.sqlitePlugin.openDatabase({ name: 'my.db', location: 'default' }, function (db) {
-
-    //     register();
-        
-    
-    // }, function (error) {
-    //     console.log('Open database ERROR: ' + JSON.stringify(error));
-    // });
-    
+   
 }
+
 
 function setTableProfile(sid) {
     
@@ -96,6 +89,19 @@ function updateTableProfile(jsonObject) {
     });
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function checkSID() {
     db.transaction(function (tx) {

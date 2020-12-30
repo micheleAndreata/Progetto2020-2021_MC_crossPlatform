@@ -68,20 +68,23 @@ function setProfile(jsonContent) {
 }
 
 // addChannerl gli viene passato jsonContent che è una string JSON.stringify(sid : 'sid', ctitle : 'ctitle_max20')
-function addChannel(jsonContent) {
+function addChannel(sid, cititle) {
     addChannelURL = baseURL + "addChannel.php";
 
     $.ajax({
         method: 'post',
         url: addChannelURL,
-        data: jsonContent,
+        data: JSON.stringify({
+            sid : sid,
+            ctitle : ctitle
+        }),
         success: function (result) {
             console.log("addChannel response OK");
+            // @todo gestire error 400: il titolo inserito esiste già
             return true;
         },
         error: function (error) {
             console.error("addChannel response code: " + error);
-            // @todo gestire error 400: il titolo inserito esiste già
         }
     })
 }
@@ -124,19 +127,20 @@ function addPost(jsonContent) {
         },
         error: function (error) {
             console.error("addPost response code: " + error);
-            // @todo gestire error 400: il titolo inserito esiste già
         }
     })
 }
 
-// getChannerl gli viene passato jsonContent che è una stringa JSON.stringify(sid : 'sid', ctitle : 'ctitle')
-function getChannel(jsonContent) {
+function getChannel(sid, ctitle) {
     getChannelURL = baseURL + "getChannel.php";
 
     $.ajax({
         method: 'get',
         url: getChannelURL,
-        data: jsonContent,
+        data: JSON.stringify({
+            sid : sid, 
+            ctitle : ctitle
+        }),
         dataType: 'json',
         success: function (result) {
             consoles.log("getChannel result: " + result);
@@ -145,6 +149,46 @@ function getChannel(jsonContent) {
         },
         error: function (error) {
             console.error("getChannel responde code: " + error);
+        }
+    })
+}
+
+function getPostImage(sid, pid) {
+    getPostImageURL = baseURL + "getPostImage.php";
+
+    $.ajax({
+        method: 'get',
+        url: getChannelURL,
+        data: JSON.stringify({
+            sid : sid,
+            pid : pid
+        }),
+        success: function (result) {
+            console.log("getPostImage result: " + result);
+            return result;
+        },
+        error: function (error) {
+            console.error(error);
+        }
+    })
+}
+
+function getUserPicture(sid, uid) {
+    getUserPictureURL = baseURL + "getUserPicture.php";
+
+    $.ajax({
+        method: 'get',
+        url: getUserPictureURL,
+        data: JSON.stringify({
+            sid : sid,
+            uid : uid
+        }),
+        result: function (result) {
+            console.log("getUserPicture result: " + result);
+            return result;
+        },
+        error: function (error) {
+            console.error(error);
         }
     })
 }

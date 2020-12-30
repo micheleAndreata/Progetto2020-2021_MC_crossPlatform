@@ -19,13 +19,30 @@ module.exports = [
         "id": "cordova-sqlite-storage.SQLiteProxy",
         "pluginId": "cordova-sqlite-storage",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/browser/notification.js",
+        "id": "cordova-plugin-dialogs.notification_browser",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.3.4",
-    "cordova-sqlite-storage": "5.1.0"
+    "cordova-sqlite-storage": "5.1.0",
+    "cordova-plugin-dialogs": "2.0.2"
 }
 // BOTTOM OF METADATA
 });

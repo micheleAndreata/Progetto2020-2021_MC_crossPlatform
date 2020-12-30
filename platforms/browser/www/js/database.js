@@ -40,20 +40,17 @@ function errorCallback(){
 
 // Cordova is ready
 function onDeviceReady() {
-    // console.log("device ready");
-    // db = window.sqlitePlugin.openDatabase({ name: 'my.db', location: 'default' }, function (db) {
-
-    //     register();
-        
     
-    // }, function (error) {
-    //     console.log('Open database ERROR: ' + JSON.stringify(error));
-    // });
-    // setProfile(JSON.stringify({
-    //     sid : 'reFG9u0a2BWjU7Jg',
-    //     name : 'pippo'
-    // }));
-    getProfile('reFG9u0a2BWjU7Jg');
+    navigator.notification.alert(
+        'You are the winner!',  // message
+        alertDismissed,         // callback
+        'Game Over',            // title
+        'Done'                  // buttonName
+    );
+}
+
+function alertDismissed() {
+    console.log('qualcosa');
 }
 
 function setTableProfile(sid) {
@@ -75,6 +72,31 @@ function setTableProfile(sid) {
     });
 }
 
+
+function updateTableProfile(jsonObject) {
+    let sid = jsonObject.sid;
+    let uid = jsonObject.uid;
+    let nome = jsonObject.name;
+    let picture = jsonObject.picture;
+    
+    db.transaction(function (tx) {
+
+        var query = "UPDATE prifile SET uid = ?, nome = ?, picture = ? WHERE sid = ?";
+
+        tx.executeSql(query, [uid, nome, picture, sid], function(tx, res) {
+            // console.log("insertId: " + res.insertId);
+            console.log("rowsAffected: " + res.rowsAffected);
+        },
+        function(tx, error) {
+            console.log('UPDATE error: ' + error.message);
+        });
+    }, function(error) {
+        console.log('transaction error: ' + error.message);
+    }, function() {
+        console.log('transaction ok');
+    });
+
+}
 
 function checkSID() {
     db.transaction(function (tx) {
