@@ -44,3 +44,9 @@ var app = {
 };
 
 app.initialize();
+
+
+$(function () {
+    //funzioni di partenza
+    
+})
