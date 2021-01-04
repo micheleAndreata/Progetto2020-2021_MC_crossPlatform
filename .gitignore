@@ -1,10 +1,10 @@
 .DS_Store
 debug.log
 platforms
-.\platforms\
-# platforms/*
-# platforms/**
-# platforms/browser
-# platforms/browser/
-# platforms/browser/*
-# platforms/browser/**
+platforms/
+platforms/*
+platforms/**
+platforms/browser
+platforms/browser/
+platforms/browser/*
+platforms/browser/**
