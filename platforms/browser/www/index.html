@@ -13,14 +13,34 @@
         <title>Accordo</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
         
+        <div class="page pageWall">
+            <h1>Miei Canali</h1>
+            <ul id="myWall"></ul>
+            <h1>Altri Canali</h1>
+            <ul id="notMyWall"></ul>
+
+            <div class="modal fade" id="addChannelModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Aggiungi Canale</h5>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" id="newChannelName">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                            <button id="addChannelConfirm" type="button" class="btn btn-primary">Aggiungi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="addChannel" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addChannelModal">+</button>
+        </div>
+
+        <div class="page pageChannel">
+        </div>
 
         <script src="lib/jquery.min.js"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script> 
