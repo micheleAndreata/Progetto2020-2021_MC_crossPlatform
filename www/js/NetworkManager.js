@@ -1,8 +1,13 @@
 class NetworkManager{
     constructor(){
         this.baseURL = "https://ewserver.di.unimi.it/mobicomp/accordo/";
-        this.sid = "xSl4g28dMDyeSuV9"; //TODO aggiungere il sid da dove è salvato
     }
+
+    //Non è di sicuro il modo più elegante per farlo
+    sid(){
+        return (JSON.parse(localStorage.getItem("profile"))).sid;
+    }
+
     register(onSuccess, onError){
         let requestURL = this.baseURL + "register.php";
         $.ajax({
@@ -24,7 +29,7 @@ class NetworkManager{
         $.ajax({
             type: "POST",
             url: requestURL,
-            data: JSON.stringify({sid:this.sid}),
+            data: JSON.stringify({sid:this.sid()}),
             dataType: "json",
             success: (response) => {
                 console.log("getProfile response OK");
@@ -41,7 +46,7 @@ class NetworkManager{
         $.ajax({
             type: "POST",
             url: requestURL,
-            data: JSON.stringify({sid:this.sid, name:name, picture:picture}),
+            data: JSON.stringify({sid:this.sid(), name:name, picture:picture}),
             dataType: "json",
             success: (response) => {
                 console.log("setProfile response OK");
@@ -58,7 +63,7 @@ class NetworkManager{
         $.ajax({
             type: "POST",
             url: requestURL,
-            data: JSON.stringify({sid:this.sid, ctitle}),
+            data: JSON.stringify({sid:this.sid(), ctitle}),
             dataType: "json",
             success: (response) => {
                 console.log("addChannel response OK");
@@ -75,7 +80,7 @@ class NetworkManager{
         $.ajax({
             type: "POST",
             url: requestURL,
-            data: JSON.stringify({sid:this.sid}),
+            data: JSON.stringify({sid:this.sid()}),
             dataType: "json",
             success: (response) => {
                 console.log("getWall response OK");
@@ -89,7 +94,7 @@ class NetworkManager{
     }
     addPost(jsonPost, onSuccess, onError){
         let requestURL = this.baseURL + "addPost.php";
-        jsonPost.sid = this.sid;
+        jsonPost.sid = this.sid();
         $.ajax({
             type: "POST",
             url: requestURL,
@@ -110,7 +115,7 @@ class NetworkManager{
         $.ajax({
             type: "POST",
             url: requestURL,
-            data: JSON.stringify({sid:this.sid, ctitle:ctitle}),
+            data: JSON.stringify({sid:this.sid(), ctitle:ctitle}),
             dataType: "json",
             success: (response) => {
                 console.log("getChannel response OK");
@@ -127,7 +132,7 @@ class NetworkManager{
         $.ajax({
             type: "POST",
             url: requestURL,
-            data: JSON.stringify({sid:this.sid, pid:pid}),
+            data: JSON.stringify({sid:this.sid(), pid:pid}),
             dataType: "json",
             success: (response) => {
                 console.log("getPostImage response OK");
@@ -144,7 +149,7 @@ class NetworkManager{
         $.ajax({
             type: "POST",
             url: requestURL,
-            data: JSON.stringify({sid:this.sid, uid:uid}),
+            data: JSON.stringify({sid:this.sid(), uid:uid}),
             dataType: "json",
             success: (response) => {
                 console.log("getUserPicture response OK");

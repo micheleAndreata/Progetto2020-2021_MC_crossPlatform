@@ -1,12 +1,35 @@
 
 var networkManager;
+var profile = {};
 
-$(function () {
-    console.log("Document ready");
+$(document).on("deviceready", () => {
+    console.log("device ready");
     networkManager = new NetworkManager();
     bindEvents();
-    getWall();
-})
+    checkRegistration();
+});
+
+function checkRegistration(){
+    if(typeof(localStorage.profile) == "undefined"){
+        networkManager.register(
+            (response) => {
+                profile.sid = response.sid;
+                localStorage.setItem("profile", JSON.stringify(profile));
+                console.log("registrazione effettuata con successo");
+                console.log(profile);
+                getWall();
+            }, (error) => {
+                console.log(error);
+            }
+        );
+    }
+    else {
+        profile = JSON.parse(localStorage.getItem("profile"));
+        console.log("utente già registrato");
+        console.log(profile);
+        getWall();
+    }
+}
 
 function bindEvents(){
     //Events to bind
