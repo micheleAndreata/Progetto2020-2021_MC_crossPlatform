@@ -18,6 +18,8 @@ function checkRegistration(){
                 console.log("registrazione effettuata con successo");
                 console.log(profile);
                 getWall();
+                indexProfile = new Profile(profile);
+                indexProfile.getImage();
             }, (error) => {
                 console.log(error);
             }
@@ -28,6 +30,8 @@ function checkRegistration(){
         console.log("utente già registrato");
         console.log(profile);
         getWall();
+        indexProfile = new Profile(profile);
+        indexProfile.getImage();
     }
 }
 
