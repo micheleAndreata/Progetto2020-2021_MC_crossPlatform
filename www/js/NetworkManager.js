@@ -1,11 +1,14 @@
 class NetworkManager{
     constructor(){
         this.baseURL = "https://ewserver.di.unimi.it/mobicomp/accordo/";
+        this._sid = null;
     }
 
     //Non è di sicuro il modo più elegante per farlo
     sid(){
-        return (JSON.parse(localStorage.getItem("profile"))).sid;
+        if (this._sid === null)
+            this._sid = (JSON.parse(localStorage.getItem("profile"))).sid;
+        return this._sid;
     }
 
     register(onSuccess, onError){
@@ -43,10 +46,17 @@ class NetworkManager{
     }
     setProfile(name, picture, onSuccess, onError){
         let requestURL = this.baseURL + "setProfile.php";
+
+        let data = {sid:this.sid()};
+        if (name != null)
+            data.name = name;
+        if (picture != null)
+            data.picture = picture;
+        
         $.ajax({
             type: "POST",
             url: requestURL,
-            data: JSON.stringify({sid:this.sid(), name:name, picture:picture}),
+            data: JSON.stringify(data),
             dataType: "json",
             success: (response) => {
                 console.log("setProfile response OK");
