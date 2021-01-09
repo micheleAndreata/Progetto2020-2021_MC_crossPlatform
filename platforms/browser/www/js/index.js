@@ -16,6 +16,8 @@ function bindEvents(){
     //Events to bind
     $("#addChannelConfirm").click(addChannel);
     $("#returnButtonChannel").click(() => showPage(".pageWall"));
+    $("#editNameConfirm").click(setNameProfile);
+    $("#btnImage").click(openFilePicker);
 }
 
 function checkRegistration(){
