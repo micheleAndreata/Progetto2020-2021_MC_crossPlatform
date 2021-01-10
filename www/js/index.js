@@ -15,7 +15,8 @@ $(document).on("deviceready", () => {
 function bindEvents(){
     //Events to bind
     $("#addChannelConfirm").click(addChannel);
-    $("#returnButtonChannel").click(() => showPage(".pageWall"));
+    $("#backBtn").click(toPageWall);
+    $("#toProfileBtn").click(toPageProfile)
     $("#editNameConfirm").click(setNameProfile);
     $("#btnImage").click(openFilePicker);
 }
@@ -38,6 +39,18 @@ function checkRegistration(){
         console.log("utente già registrato");
         getWall();
     }
+}
+
+function toPageWall(){
+    $("#backBtn").hide();
+    $("#pageTitle").html("Accordo");
+    showPage(".pageWall");
+}
+
+function toPageProfile(){
+    $("#backBtn").show();
+    $("#pageTitle").html("Profilo");
+    showPage(".pageProfile");
 }
 
 function showPage(cssClass){

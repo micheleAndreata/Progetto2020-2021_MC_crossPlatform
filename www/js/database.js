@@ -38,7 +38,7 @@ class Database {
         this.accessDatabase(query, [uid, picture, pversion], successCallback, errorCallback, "inserUserPicture");
     }
     updateUserPicture(uid, picture, pversion, successCallback, errorCallback) {
-        let query = "UPDATE userPicture SET picture = ? pversion = ? WHERE uid = ?";
+        let query = "UPDATE userPicture SET picture = ?, pversion = ? WHERE uid = ?";
         this.accessDatabase(query, [picture, pversion, uid], successCallback, errorCallback, "updateUserPicture");
     }
     getPostImages(successCallback, errorCallback) {
