@@ -3,9 +3,8 @@ var networkManager = new NetworkManager();
 var db = Database.getInsance();
 
 function getChannel(){
-    $("#posts").html("");
-    showPage(".pageChannel");
     let cTitle = $(this).html();
+    showPageChannel(cTitle);
     networkManager.getChannel(
         cTitle,
         response => {
@@ -15,6 +14,13 @@ function getChannel(){
             console.log(error);
         }
     );
+}
+
+function showPageChannel(cTitle){
+    $("#backBtn").show();
+    $("#pageTitle").html(cTitle);
+    $("#posts").html("");
+    showPage(".pageChannel");
 }
 
 function visualizePosts(posts){

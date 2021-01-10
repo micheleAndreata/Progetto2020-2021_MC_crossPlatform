@@ -1,4 +1,8 @@
 
+body {
+    padding-top: 4.5rem; /* -> per la navbar che ha position fixed */
+}
+
 .page{
     background-color: white;
     padding-top: 15px;
@@ -9,6 +13,10 @@
 }
 
 .pageChannel{
+    display: none;
+}
+
+.pageProfile{
     display: none;
 }
 
@@ -26,9 +34,21 @@
     right: 30px;
 }
 
-.pageProfile{
-    display: block;
+#pageTitle {
+    font-size: 1.5em;
+    vertical-align: middle;
 }
+
+#backBtn {
+    display: none;
+    width: 2.0em;
+    margin: 0 10px;
+}
+
+.pointMenu:after {
+    content: '\2807';
+    font-size: 2.0em;
+    }
 
 .image_outer_container{
     margin-top: auto;
