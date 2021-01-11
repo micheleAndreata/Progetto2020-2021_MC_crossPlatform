@@ -73,6 +73,17 @@ body {
     border: 5px solid white;
 }
 
+.userPicture{
+    width: 50px;
+    height: 50px;
+}
+
+.postImage{
+    max-width: 300px;
+    display: block;
+    
+}
+
 .picture{
     padding-top: 10px;
 }

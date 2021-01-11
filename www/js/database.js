@@ -31,11 +31,11 @@ class Database {
     }
     insertPostImage(pid, image, successCallback, errorCallback) {
         let query = "INSERT INTO postImage (pid, picture) VALUES (?,?)";
-        this.accessDatabase(query, [pid, image], successCallback, errorCallback, "inserPostImage");
+        this.accessDatabase(query, [pid, image], successCallback, errorCallback, "insertPostImage");
     }
     insertUserPicture(uid, picture, pversion, successCallback, errorCallback) {
         let query = "INSERT INTO userPicture (uid, picture, pversion) VALUES (?,?,?)";
-        this.accessDatabase(query, [uid, picture, pversion], successCallback, errorCallback, "inserUserPicture");
+        this.accessDatabase(query, [uid, picture, pversion], successCallback, errorCallback, "insertUserPicture");
     }
     updateUserPicture(uid, picture, pversion, successCallback, errorCallback) {
         let query = "UPDATE userPicture SET picture = ?, pversion = ? WHERE uid = ?";
@@ -48,6 +48,10 @@ class Database {
     getUserPictures(successCallback, errorCallback) {
         let query = "SELECT * FROM userPicture";
         this.accessDatabase(query, [], successCallback, errorCallback, "getUserPictures");
+    }
+    debugClearTable(tableName){
+        let query = "DELETE FROM "+ tableName +" WHERE true";
+        this.accessDatabase(query, [], ()=>{console.log("clear success"), ()=>{console.error("clear error")}});
     }
     accessDatabase(query, inputs, onExecuteSuccess, onExecuteError, execution_tag){
         this._db.transaction(
