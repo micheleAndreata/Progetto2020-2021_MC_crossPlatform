@@ -21,6 +21,7 @@
         "cordova-android": "^9.0.0",
         "cordova-browser": "^6.0.0",
         "cordova-plugin-camera": "^5.0.1",
+        "cordova-plugin-file": "^6.0.2",
         "cordova-sqlite-storage": "^5.1.0",
         "to": "^0.2.9",
         "update": "^0.7.4"
@@ -30,7 +31,8 @@
             "cordova-plugin-whitelist": {},
             "cordova-plugin-dialogs": {},
             "cordova-plugin-camera": {},
-            "cordova-sqlite-storage": {}
+            "cordova-sqlite-storage": {},
+            "cordova-plugin-file": {}
         },
         "platforms": [
             "browser",
