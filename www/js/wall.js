@@ -16,7 +16,7 @@ function getWall(){
                     $("#notMyWall").append("<li class='channelClick'>"+channel.ctitle+"</li>");
                 }
             }
-            $(".channelClick").click(getChannel);
+            $(".channelClick").click(onChannelClick);
         }, (error) => {
             console.log(error);
         }

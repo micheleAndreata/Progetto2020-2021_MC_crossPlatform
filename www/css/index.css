@@ -87,3 +87,13 @@ body {
 .picture{
     padding-top: 10px;
 }
+
+#inputMessage {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+
+.wrapText {
+    word-wrap: break-word;
+}

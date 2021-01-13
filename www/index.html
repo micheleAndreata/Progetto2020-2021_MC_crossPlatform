@@ -57,7 +57,14 @@
             </div>
 
             <div class="page pageChannel">
-                <ul id="posts"></ul>
+                <ul id="posts" class="pb-5 mb-5"></ul>
+                <div id="inputMessage" class="bg-white w-100">
+                    <div class="d-flex p-3">
+                        <input type="text" class="form-control me-2" id="text">
+                        <button class="btn me-1 p-0" id="sendImage"><img src="img/gallery.png" width="40px" alt=""></button>
+                        <button class="btn btn-primary" id="sendText">Invia</button>
+                    </div>
+                </div>
             </div>
 
             <!-- PROFILE -->
@@ -69,9 +76,9 @@
                                 <img id="imageProfile" src="" alt="">
                             </div>
                         </div>
-                        <button id="btnImage" type="button" class="btn btn-primary" >modifica immagine profilo</button>
+                        <button id="changeProfilePicBtn" type="button" class="btn btn-primary" >modifica immagine profilo</button>
                     </div>
-                    <div class="d-flex justify-content-center h-100 picture">                    
+                    <div class="d-flex justify-content-center h-100 pt-3">
                         <div id="nameProfile"></div>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditName">Modifica</button>
                     </div>
@@ -98,6 +105,7 @@
         <script src="lib/jquery.min.js"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script> 
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/imageUtils.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/networkManager.js"></script>
         <script type="text/javascript" src="js/database.js"></script>       

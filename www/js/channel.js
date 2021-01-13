@@ -1,15 +1,20 @@
 
 var networkManager = new NetworkManager();
 var db = Database.getInsance();
+var cTitle;
 
-function getChannel(){
-    let cTitle = $(this).html();
+function onChannelClick(){
+    cTitle = $(this).html();
+    getChannel(cTitle);
+}
+
+function getChannel(cTitle){
     showPageChannel(cTitle);
     networkManager.getChannel(
         cTitle,
         response => {
             let posts = response.posts;
-            visualizePosts(posts);
+            showPosts(posts);
         }, error => {
             console.log(error);
         }
@@ -23,18 +28,18 @@ function showPageChannel(cTitle){
     showPage(".pageChannel");
 }
 
-function visualizePosts(posts){
+function showPosts(posts){
     let userSet = {};
     let postImages = new Array();
     for (let i=0; i < posts.length; i++){
         userSet[posts[i].uid] = posts[i].pversion;
         let htmlContent = "<li>";
-        htmlContent += "<div>";
+        htmlContent += "<div class='wrapText'>";
         htmlContent += "<img class='userPicture' data-uid='"+posts[i].uid+"' data-pversion='"+posts[i].pversion+"'>";
         htmlContent += posts[i].name;
         htmlContent += "</div>";
         if (posts[i].type == "t"){
-            htmlContent += "<div>"+posts[i].content+"</div>";
+            htmlContent += "<div class='wrapText'>"+posts[i].content+"</div>";
         } else if (posts[i].type == "i"){
             htmlContent += "<img class='postImage' data-pid='"+posts[i].pid+"'>";
             postImages.push(posts[i].pid);
@@ -51,17 +56,17 @@ function visualizePosts(posts){
 function updatePostImages(postImages){
     db.getPostImages(
         (tx,result) => {
-            let dbPostImages = dbObjectToArray(result.rows);
+            let dbPostImages = Database.dbObjectToArray(result.rows);
             postImages.forEach(pid => {
                 let dbPostImage = dbPostImages.filter(p => p.pid == pid); //ritorna un array
                 if (dbPostImage.length > 0){
-                    visPostImage(pid, dbPostImage[0].picture);
+                    showPostImage(pid, dbPostImage[0].picture);
                 }
                 else {
                     networkManager.getPostImage(
                         pid,
                         result => {
-                            visPostImage(pid, result.content);
+                            showPostImage(pid, result.content);
                             db.insertPostImage(pid, result.content);
                         }, error => {
                             console.error(error);
@@ -75,7 +80,7 @@ function updatePostImages(postImages){
     );
 }
 
-function visPostImage(pid, image){
+function showPostImage(pid, image){
     if (image != null && isBase64(image)){
         $("*[data-pid='"+pid+"']").attr("src", "data:image/jpeg;base64, " + image);
     }
@@ -87,7 +92,7 @@ function updateUserPictures(userSet){
     db.getUserPictures(
         (tx, result) => {
             let uidSet = Object.keys(userSet);
-            let dbUserPictures = dbObjectToArray(result.rows);
+            let dbUserPictures = Database.dbObjectToArray(result.rows);
             uidSet.forEach(uid => {
                 let dbUser = dbUserPictures.filter(user => user.uid == uid); //ritorna un array
                 if (dbUser.length > 0){ //user con uid è presente nel DB?
@@ -96,7 +101,7 @@ function updateUserPictures(userSet){
                     if (dbPVersion < serverPVersion){
                         downloadAndUpdateUserPicture(uid);
                     } else {
-                        visUserPicture(dbUser[0]);
+                        showUserPicture(dbUser[0]);
                     }
                 } else {
                     downloadAndInsertUserPicture(uid);
@@ -108,18 +113,11 @@ function updateUserPictures(userSet){
     );
 }
 
-function visUserPicture(userPicture){
-    if (userPicture.picture != null && isBase64(userPicture.picture))
-        $("*[data-uid='"+userPicture.uid+"']").attr("src", "data:image/jpeg;base64, " + userPicture.picture);
-    else
-        $("*[data-uid='"+userPicture.uid+"']").attr("src", "img/logo.png");
-}
-
 function downloadAndUpdateUserPicture(uid){
     networkManager.getUserPicture(
         uid,
         result => {
-            visUserPicture(result);
+            showUserPicture(result);
             db.updateUserPicture(result.uid, result.picture, result.pversion);
         }, error => {
             console.error(error);
@@ -130,7 +128,7 @@ function downloadAndInsertUserPicture(uid){
     networkManager.getUserPicture(
         uid,
         result => {
-            visUserPicture(result);
+            showUserPicture(result);
             db.insertUserPicture(result.uid, result.picture, result.pversion);
         }, error => {
             console.error(error);
@@ -138,15 +136,42 @@ function downloadAndInsertUserPicture(uid){
     );
 }
 
-function dbObjectToArray(dbObject){
-    out = new Array();
-    for (let i=0; i < dbObject.length; i++){
-        out.push(dbObject.item(i));
-    }
-    return out;
+function showUserPicture(userPicture){
+    if (userPicture.picture != null && isBase64(userPicture.picture))
+        $("*[data-uid='"+userPicture.uid+"']").attr("src", "data:image/jpeg;base64, " + userPicture.picture);
+    else
+        $("*[data-uid='"+userPicture.uid+"']").attr("src", "img/logo.png");
 }
 
-function isBase64(str){
-    let regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-    return regex.test(str);
+function onSendText(){
+    let text = $("#text").val();
+    $("#text").val("");
+    let jsonPost = {ctitle:cTitle, type:"t", content:text};
+    networkManager.addPost(
+        jsonPost,
+        () => getChannel(cTitle),
+        error => console.log(error)
+    );
+}
+
+function onSendImage(){
+    let options = {
+        quality: 20,
+        targetWidth: 300,
+        destinationType: Camera.DestinationType.FILE_URI,
+        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+        encodingType: Camera.EncodingType.JPEG,
+        mediaType: Camera.MediaType.PICTURE,
+        allowEdit: true,
+        correctOrientation: true
+    };
+    openFilePicker(options, sendImage);
+}
+function sendImage(image){
+    let jsonPost = {ctitle:cTitle, type:"i", content:image};
+    networkManager.addPost(
+        jsonPost,
+        () => getChannel(cTitle),
+        error => console.error(error)
+    );
 }

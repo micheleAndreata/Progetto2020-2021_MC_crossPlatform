@@ -18,7 +18,9 @@ function bindEvents(){
     $("#backBtn").click(toPageWall);
     $("#toProfileBtn").click(toPageProfile)
     $("#editNameConfirm").click(setProfileName);
-    $("#btnImage").click(openFilePicker);
+    $("#changeProfilePicBtn").click(onChangeProfilePic);
+    $("#sendText").click(onSendText);
+    $("#sendImage").click(onSendImage);
 }
 
 function checkRegistration(){
