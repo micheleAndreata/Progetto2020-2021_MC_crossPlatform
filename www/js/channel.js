@@ -76,8 +76,9 @@ function updatePostImages(postImages){
 }
 
 function visPostImage(pid, image){
-    if (image != null)
+    if (image != null && isBase64(image)){
         $("*[data-pid='"+pid+"']").attr("src", "data:image/jpeg;base64, " + image);
+    }
     else
         $("*[data-pid='"+pid+"']").hide();
 }
@@ -108,7 +109,7 @@ function updateUserPictures(userSet){
 }
 
 function visUserPicture(userPicture){
-    if (userPicture.picture != null)
+    if (userPicture.picture != null && isBase64(userPicture.picture))
         $("*[data-uid='"+userPicture.uid+"']").attr("src", "data:image/jpeg;base64, " + userPicture.picture);
     else
         $("*[data-uid='"+userPicture.uid+"']").attr("src", "img/logo.png");
@@ -143,4 +144,9 @@ function dbObjectToArray(dbObject){
         out.push(dbObject.item(i));
     }
     return out;
+}
+
+function isBase64(str){
+    let regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+    return regex.test(str);
 }

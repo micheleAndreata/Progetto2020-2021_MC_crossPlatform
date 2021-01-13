@@ -17,7 +17,7 @@ function bindEvents(){
     $("#addChannelConfirm").click(addChannel);
     $("#backBtn").click(toPageWall);
     $("#toProfileBtn").click(toPageProfile)
-    $("#editNameConfirm").click(setNameProfile);
+    $("#editNameConfirm").click(setProfileName);
     $("#btnImage").click(openFilePicker);
 }
 
@@ -50,6 +50,8 @@ function toPageWall(){
 function toPageProfile(){
     $("#backBtn").show();
     $("#pageTitle").html("Profilo");
+    showProfileName();
+    showProfilePicture();
     showPage(".pageProfile");
 }
 
