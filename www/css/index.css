@@ -84,10 +84,6 @@ body {
     
 }
 
-.picture{
-    padding-top: 10px;
-}
-
 #inputMessage {
     position: fixed;
     bottom: 0px;
@@ -96,4 +92,21 @@ body {
 
 .wrapText {
     word-wrap: break-word;
+}
+
+#map {
+    display: none;
+    width: calc(100% - 2rem);
+    height: calc(100% - 6.5rem);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 3000;
+}
+
+#map > .btn {
+    position: absolute;
+    top:0;
+    right:0;
+    z-index: 4000;
 }

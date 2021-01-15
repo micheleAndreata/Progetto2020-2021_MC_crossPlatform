@@ -5,8 +5,10 @@ var profile = {};
 
 $(document).on("deviceready", () => {
     console.log("device ready");
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWljaGVsZWFuZHJlYXRhIiwiYSI6ImNrMzcyODJ1NjA3ZWQzbW85emg2cWxkbHMifQ.o2QEcqmKEjqtxpcLikWdCw';
     networkManager = new NetworkManager();
-    db = Database.getInsance();
+    profile = {};
+    db = new Database();
     db.setupDatabase();
     bindEvents();
     checkRegistration();
@@ -21,6 +23,8 @@ function bindEvents(){
     $("#changeProfilePicBtn").click(onChangeProfilePic);
     $("#sendText").click(onSendText);
     $("#sendImage").click(onSendImage);
+    $("#sendLocation").click(onSendLocation);
+    $("#closeMapBtn").click(onCloseMap);
 }
 
 function checkRegistration(){

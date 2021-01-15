@@ -7,7 +7,7 @@ function isBase64(str){
 function openFilePicker(options, onImageRetrieved) {
     navigator.camera.getPicture(
         (image) => {
-            if (image.substr(0,5) === "file:"){
+            if (window.cordova.platformId === "android"){
                 getFileContentAsBase64(image, (base64)=>{
                     console.log(base64);
                     onImageRetrieved(base64);
@@ -24,6 +24,7 @@ function openFilePicker(options, onImageRetrieved) {
 
 
 function getFileContentAsBase64(path,callback){
+    console.log(path);
     window.resolveLocalFileSystemURL(path, gotFile, fail);   
     function fail(e) {
         alert('file non trovato');

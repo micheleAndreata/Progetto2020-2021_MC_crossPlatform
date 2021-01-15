@@ -1,13 +1,7 @@
 
 class Database {
-    static _instance = null;
     constructor(){
         this._db = null;
-    }
-    static getInsance(){
-        if (Database._instance == null)
-            Database._instance = new Database();
-        return Database._instance;
     }
     static dbObjectToArray(dbObject){
         let out = new Array();

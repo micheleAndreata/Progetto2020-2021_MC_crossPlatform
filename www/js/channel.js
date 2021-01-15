@@ -1,7 +1,8 @@
 
 var networkManager = new NetworkManager();
-var db = Database.getInsance();
 var cTitle;
+var map;
+var marker;
 
 function onChannelClick(){
     cTitle = $(this).html();
@@ -44,11 +45,17 @@ function showPosts(posts){
             htmlContent += "<img class='postImage' data-pid='"+posts[i].pid+"'>";
             postImages.push(posts[i].pid);
         } else if (posts[i].type == "l"){
-            htmlContent += "<div>"+posts[i].lat+" "+posts[i].lon+"</div>";
+            htmlContent += "<div class='d-flex justify-content-center align-items-center m-2'>";
+            htmlContent += "<button class='locationBtn btn btn-lg' data-lat='"+ posts[i].lat +"' data-lon='"+ posts[i].lon +"'>";
+            htmlContent += "<img src='img/location.png' width='40px' alt=''>";
+            htmlContent += "<span class='ms-2 align-middle'>Posizione Condivisa</span>";
+            htmlContent += "</button>";
+            htmlContent += "</div>";
         }
         htmlContent += "</li>";
         $("#posts").append(htmlContent);
     }
+    $(".locationBtn").click(onShowLocation);
     updateUserPictures(userSet);
     updatePostImages(postImages);
 }
@@ -140,7 +147,7 @@ function showUserPicture(userPicture){
     if (userPicture.picture != null && isBase64(userPicture.picture))
         $("*[data-uid='"+userPicture.uid+"']").attr("src", "data:image/jpeg;base64, " + userPicture.picture);
     else
-        $("*[data-uid='"+userPicture.uid+"']").attr("src", "img/logo.png");
+        $("*[data-uid='"+userPicture.uid+"']").attr("src", "img/userPicture.png");
 }
 
 function onSendText(){
@@ -156,8 +163,7 @@ function onSendText(){
 
 function onSendImage(){
     let options = {
-        quality: 20,
-        targetWidth: 300,
+        quality: 10,
         destinationType: Camera.DestinationType.FILE_URI,
         sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
         encodingType: Camera.EncodingType.JPEG,
@@ -174,4 +180,66 @@ function sendImage(image){
         () => getChannel(cTitle),
         error => console.error(error)
     );
+}
+
+function onSendLocation(){
+    let options = { enableHighAccuracy: true }; 
+    if(!navigator.geolocation) {
+        console.log('Geolocation is not supported'); 
+    } 
+    else {
+        console.log('Locating...');
+        navigator.geolocation.getCurrentPosition(
+            sendLocation, 
+            error => console.error(error),
+            options); 
+    }
+}
+function sendLocation(geolocation){
+    let lat = geolocation.coords.latitude;
+    let lon = geolocation.coords.longitude;
+    let jsonPost = {ctitle:cTitle, type:"l", lat:lat, lon:lon};
+    networkManager.addPost(
+        jsonPost,
+        () => getChannel(cTitle),
+        error => console.error(error)
+    );
+}
+
+function onShowLocation(event){
+    let locationBtn;
+    if ($(event.target).is(":button")){
+        locationBtn = $(event.target);
+    }
+    else {
+        locationBtn = $(event.target).parent();
+    }
+    let lat = locationBtn.data("lat");
+    let lon = locationBtn.data("lon");
+    console.log(locationBtn);
+    console.log(lat, lon);
+    $("#map").show();
+    if (map == null){
+        initMap();
+    }
+    if (marker != null){
+        marker.remove();
+    }
+    map.setCenter([lon, lat]) // !!! ==> [lng, lat]
+    marker = new mapboxgl.Marker()
+        .setLngLat([lon, lat]) // !!! ==> [lng, lat]
+        .addTo(map);
+}
+
+function onCloseMap(){
+    $("#map").hide();
+}
+
+function initMap(){
+    map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+        center: [0,0],
+        zoom: 9 // starting zoom
+    });
 }
