@@ -30,7 +30,7 @@ function showProfilePicture(){
         $("#imageProfile").attr("src", "data:image/jpeg;base64, " + picture);
 
     } else {
-        $("#imageProfile").attr("src", "img/logo.png");
+        $("#imageProfile").attr("src", "img/userPicture.png");
     }
 }
 

@@ -32,32 +32,54 @@ function showPageChannel(cTitle){
 function showPosts(posts){
     let userSet = {};
     let postImages = new Array();
-    for (let i=0; i < posts.length; i++){
-        userSet[posts[i].uid] = posts[i].pversion;
-        let htmlContent = "<li>";
-        htmlContent += "<div class='wrapText'>";
-        htmlContent += "<img class='userPicture' data-uid='"+posts[i].uid+"' data-pversion='"+posts[i].pversion+"'>";
-        htmlContent += posts[i].name;
-        htmlContent += "</div>";
-        if (posts[i].type == "t"){
-            htmlContent += "<div class='wrapText'>"+posts[i].content+"</div>";
-        } else if (posts[i].type == "i"){
-            htmlContent += "<img class='postImage' data-pid='"+posts[i].pid+"'>";
-            postImages.push(posts[i].pid);
-        } else if (posts[i].type == "l"){
-            htmlContent += "<div class='d-flex justify-content-center align-items-center m-2'>";
-            htmlContent += "<button class='locationBtn btn btn-lg' data-lat='"+ posts[i].lat +"' data-lon='"+ posts[i].lon +"'>";
-            htmlContent += "<img src='img/location.png' width='40px' alt=''>";
-            htmlContent += "<span class='ms-2 align-middle'>Posizione Condivisa</span>";
-            htmlContent += "</button>";
-            htmlContent += "</div>";
-        }
-        htmlContent += "</li>";
-        $("#posts").append(htmlContent);
-    }
+    posts.forEach(post => {
+
+        userSet[post.uid] = post.pversion;
+        if (post.type == "i")
+            postImages.push(post.pid);
+        
+        let htmlPost = getHtmlPost(post)
+        $("#posts").append(htmlPost);
+    });
     $(".locationBtn").click(onShowLocation);
     updateUserPictures(userSet);
     updatePostImages(postImages);
+}
+
+function getHtmlPost(post){
+    let html = `<li class="mb-3">`;
+    html += `
+        <div>
+            <img class='userPicture rounded' data-uid='`+post.uid+`' data-pversion='`+post.pversion+`'>
+            <span class='wrapText'>`+post.name+`</span>
+        </div>
+    `;
+    if (post.type == "t"){
+        html += `
+            <div class='m-2'>
+                <div class='wrapText'>`+post.content+`</div>
+            </div>
+        `;
+    } 
+    else if (post.type == "i"){
+        html += `
+            <div class='d-flex justify-content-center align-items-center m-2'>
+                <img class='postImage' style="max-height:200px" data-pid='`+post.pid+`'>
+            </div>
+        `;
+    } 
+    else if (post.type == "l"){
+        html += `
+            <div class='d-flex justify-content-center align-items-center m-2'>
+                <button class='locationBtn btn btn-lg' data-lat='`+ post.lat +`' data-lon='`+ post.lon +`'>
+                    <img src='img/location.png' width='40px' alt=''>
+                    <span class='ms-2 align-middle'>Posizione Condivisa</span>
+                </button>
+            </div>
+        `;
+    }
+    html += "</li>";
+    return html;
 }
 
 function updatePostImages(postImages){
@@ -88,11 +110,8 @@ function updatePostImages(postImages){
 }
 
 function showPostImage(pid, image){
-    if (image != null && isBase64(image)){
-        $("*[data-pid='"+pid+"']").attr("src", "data:image/jpeg;base64, " + image);
-    }
-    else
-        $("*[data-pid='"+pid+"']").hide();
+    $("*[data-pid='"+pid+"']").attr("onerror", "this.onerror=null;this.src='';this.style.display='none';"); 
+    $("*[data-pid='"+pid+"']").attr("src", "data:image/jpeg;base64, " + image);
 }
 
 function updateUserPictures(userSet){
@@ -144,10 +163,8 @@ function downloadAndInsertUserPicture(uid){
 }
 
 function showUserPicture(userPicture){
-    if (userPicture.picture != null && isBase64(userPicture.picture))
-        $("*[data-uid='"+userPicture.uid+"']").attr("src", "data:image/jpeg;base64, " + userPicture.picture);
-    else
-        $("*[data-uid='"+userPicture.uid+"']").attr("src", "img/userPicture.png");
+    $("*[data-uid='"+userPicture.uid+"']").attr("onerror", "this.onerror=null;this.src='./img/userPicture.png';");
+    $("*[data-uid='"+userPicture.uid+"']").attr("src", "data:image/jpeg;base64, " + userPicture.picture);
 }
 
 function onSendText(){
@@ -216,8 +233,6 @@ function onShowLocation(event){
     }
     let lat = locationBtn.data("lat");
     let lon = locationBtn.data("lon");
-    console.log(locationBtn);
-    console.log(lat, lon);
     $("#map").show();
     if (map == null){
         initMap();

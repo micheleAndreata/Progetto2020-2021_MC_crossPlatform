@@ -32,11 +32,13 @@
         </nav>
         
         <div class="container-fluid">
+
+            <!-- WALL -->
             <div class="page pageWall">
-                <h1>Miei Canali</h1>
-                <ul id="myWall"></ul>
-                <h1>Altri Canali</h1>
-                <ul id="notMyWall"></ul>
+                <h1 class="mb-2">Miei Canali</h1>
+                <ul class="list-unstyled wall" id="myWall"></ul>
+                <h1 class="mb-2">Altri Canali</h1>
+                <ul class="list-unstyled wall" id="notMyWall"></ul>
 
                 <div class="modal fade" id="addChannelModal" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
@@ -46,6 +48,7 @@
                             </div>
                             <div class="modal-body">
                                 <input type="text" class="form-control" id="newChannelName">
+                                <label for="newChannelName" style="color: red; display: none;"></label>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
@@ -54,11 +57,14 @@
                         </div>
                     </div>
                 </div>
-                <button id="addChannel" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addChannelModal">+</button>
+                <button id="addChannel" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addChannelModal">
+                    +
+                </button>
             </div>
 
+            <!-- CHANNEL -->
             <div class="page pageChannel">
-                <ul id="posts" class="pb-5 mb-5"></ul>
+                <ul id="posts" class="list-unstyled pb-5 mb-5"></ul>
                 <div id="inputMessage" class="bg-white w-100">
                     <div class="d-flex p-3">
                         <input type="text" class="form-control me-2" id="text">
