@@ -20,6 +20,21 @@ body {
     display: none;
 }
 
+.invalidInput{
+    border: 1px solid red;
+}
+
+.wallElement {
+    font-size: 1.7em;
+    font-weight: 300;
+    padding: 8px 0;
+    border-top: 1px solid rgb(194, 194, 194);
+}
+
+.wall :first-child {
+    border-top: 0;
+}
+
 #addChannel{
     height: 60px;
     width: 60px;
@@ -48,7 +63,7 @@ body {
 .pointMenu:after {
     content: '\2807';
     font-size: 2.0em;
-    }
+}
 
 .image_outer_container{
     margin-top: auto;
@@ -60,10 +75,7 @@ body {
 .image_inner_container{
     border-radius: 50%;
     padding: 5px;
-    background: black; 
-    /* background: #833ab4; 
-    background: -webkit-linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4); 
-    background: linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4); */
+    background: black;
 }
 
 .image_inner_container img{
@@ -76,6 +88,7 @@ body {
 .userPicture{
     width: 50px;
     height: 50px;
+    border-radius: 50%;
 }
 
 .postImage{
@@ -84,6 +97,29 @@ body {
     
 }
 
-.picture{
-    padding-top: 10px;
+#inputMessage {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+
+.wrapText {
+    word-wrap: break-word;
+}
+
+#map {
+    display: none;
+    width: calc(100% - 2rem);
+    height: calc(100% - 6.5rem);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 3000;
+}
+
+#map > .btn {
+    position: absolute;
+    top:0;
+    right:0;
+    z-index: 4000;
 }
