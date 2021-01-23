@@ -6,7 +6,7 @@ var profile = JSON.parse(localStorage.getItem("profile"));
 function showProfileName(){
     if (typeof(profile.name) != 'undefined') {
         let name = profile.name;
-        $('#nameProfile').html('<h3>' + name + '</h3>');
+        $('#nameProfile').html('<h3 class="nameProfile">' + name + '</h3>');
     } else {
         $('#nameProfile').html('<p class="alert alert-danger">Nessun nome inserito</p>');
     }

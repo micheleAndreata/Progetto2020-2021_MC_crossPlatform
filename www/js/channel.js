@@ -47,7 +47,7 @@ function showPosts(posts){
 }
 
 function getHtmlPost(post){
-    let html = `<li class="mb-3">`;
+    let html = `<li class="rounded-3 messageBackground mb-3">`;
     html += `
         <div>
             <img class='userPicture rounded' data-uid='`+post.uid+`' data-pversion='`+post.pversion+`'>

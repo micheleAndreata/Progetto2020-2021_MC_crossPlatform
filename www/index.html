@@ -57,8 +57,8 @@
                         </div>
                     </div>
                 </div>
-                <button id="addChannel" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addChannelModal">
-                    +
+                <button id="addChannel" class="btn btn-primary btn-addChannel floatingBtn p-0 shadow mb-5" type="button" data-bs-toggle="modal" data-bs-target="#addChannelModal">
+                    <img class="p-1" src="img/plus.svg" width="40px" alt="">
                 </button>
             </div>
 
@@ -67,10 +67,10 @@
                 <ul id="posts" class="list-unstyled pb-5 mb-5"></ul>
                 <div id="inputMessage" class="bg-white w-100">
                     <div class="d-flex p-3">
-                        <input type="text" class="form-control me-2" id="text">
-                        <button class="btn me-1 p-0" id="sendLocation"><img src="img/location.png" width="40px" alt=""></button>
-                        <button class="btn me-1 p-0" id="sendImage"><img src="img/gallery.png" width="40px" alt=""></button>
-                        <button class="btn btn-primary" id="sendText">Invia</button>
+                        <input type="text" class="form-control input-channel me-2" id="text">
+                        <button class="btn btn-primary btn-channel me-1 p-0" id="sendLocation"><img class="p-2" src="img/location.png" width="40px" alt=""></button>
+                        <button class="btn btn-primary btn-channel me-1 p-0" id="sendImage"><img class="p-2" src="img/gallery.png" width="40px" alt=""></button>
+                        <button class="btn btn-primary btn-channel me-1 p-0" id="sendText"><img class="p-2" src="img/send.svg" width="40px" alt=""></button>
                     </div>
                 </div>
                 <div id='map' class="mb-3 mx-3 shadow-lg bg-white rounded">
@@ -84,14 +84,19 @@
                     <div class="d-flex justify-content-center h-100">
                         <div class="image_outer_container">
                             <div class="image_inner_container">
-                                <img id="imageProfile" src="" alt="">
+                                <img class="rounded-3" id="imageProfile" src="" alt="">
                             </div>
                         </div>
-                        <button id="changeProfilePicBtn" type="button" class="btn btn-primary" >modifica immagine profilo</button>
                     </div>
-                    <div class="d-flex justify-content-center h-100 pt-3">
+                    <div class="d-flex justify-content-center h-100">
+                        <button id="changeProfilePicBtn" type="button" class="btn btn-primary btn-imgProfile">MODIFICA IMMAGINE</button>
+                    </div>
+                    <div class="d-flex justify-content-center h-100 pt-5">
+                        <h2>Nome:</h2>
                         <div id="nameProfile"></div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditName">Modifica</button>
+                        <button type="button" class="btn btn-primary btn-channel me-1 p-0" data-bs-toggle="modal" data-bs-target="#modalEditName">
+                            <img class="p-2" src="img/edit.svg" width="40px" alt="">
+                        </button>
                     </div>
                 </div>
                 <div class="modal fade" id="modalEditName" tabindex="-1">

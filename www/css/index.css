@@ -63,26 +63,28 @@ body {
 .pointMenu:after {
     content: '\2807';
     font-size: 2.0em;
+    color: #FFFFFF;
 }
 
 .image_outer_container{
     margin-top: auto;
     margin-bottom: auto;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     position: relative;
+    padding: 20px;
 }
 
 .image_inner_container{
-    border-radius: 50%;
+    /* border-radius: 50%; */
     padding: 5px;
-    background: black;
+    /* background: black; */
 }
 
 .image_inner_container img{
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    border: 5px solid white;
+    height: 200px;
+    width: 200px;
+    /* border-radius: 50%;
+    border: 5px solid white; */
 }
 
 .userPicture{
@@ -101,6 +103,55 @@ body {
     position: fixed;
     bottom: 0px;
     left: 0px;
+}
+
+.btn-channel{
+    background-color: #15737A !important;
+    border-color: #15737A !important;
+    border-radius: 50%;
+}
+/* .btn-addChannel{
+    background-color: #B9F3B9 !important;
+    border-color: #85EA85 !important;
+} */
+
+.bg-light{
+    background-color: #15737A !important;
+}
+
+.navbar-light .navbar-brand {
+    color: #FFFFFF !important;
+}
+
+.messageBackground{
+    background-color: #B2CEDE;
+    /* border-radius: 5%; */
+    margin-top: 10px;
+    margin-left: 6px;
+    margin-right: 6px;
+    padding: 20px;
+}
+
+.input-channel{
+    background-color: #15737A !important;
+    color: #FFFFFF !important;
+    border-radius: 10px;
+}
+
+.channelClick{
+    padding-left: 10px;
+}
+
+.btn-imgProfile{
+    border-radius: 10px;
+    background-color: #15737A !important;
+    border-color: #15737A !important;
+}
+
+.nameProfile{
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 1.5 !important;
 }
 
 .wrapText {
