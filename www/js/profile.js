@@ -8,19 +8,35 @@ function showProfileName(){
         let name = profile.name;
         $('#nameProfile').html('<h3 class="nameProfile">' + name + '</h3>');
     } else {
-        $('#nameProfile').html('<p class="alert alert-danger">Nessun nome inserito</p>');
+        $('#nameProfile').html('<div class="alert">Nessun nome inserito</div>');
     }
 }
 function setProfileName() {
     let modalEditName = bootstrap.Modal.getInstance(document.getElementById('modalEditName'));
-    let name = $('#inputEditName').val();
-    modalEditName.hide();
-    networkManager.setProfile(name, null, (response) => {
-        profile.name = name;
-        localStorage.setItem("profile", JSON.stringify(profile));
-        profile = JSON.parse(localStorage.getItem("profile"));
-        showProfileName();
-    });
+    
+    let name = ($('#inputEditName').val()).trim();
+
+    if (name.length === 0){
+        $('#inputEditName').next().show();
+        $('#inputEditName').next().html("Inserisci un nome valido");
+    }
+    else {
+        networkManager.setProfile(
+            name, 
+            null, 
+            (response) => {
+                $('#inputEditName').next().html("");
+                $('#inputEditName').next().hide();
+                modalEditName.hide();
+                profile.name = name;
+                localStorage.setItem("profile", JSON.stringify(profile));
+                profile = JSON.parse(localStorage.getItem("profile"));
+                showProfileName();
+            }, error => {
+                $('#inputEditName').next().show();
+                $('#inputEditName').next().html("Nome inserito non disponibile");
+            });
+    }
 }
 
 // PICTURE

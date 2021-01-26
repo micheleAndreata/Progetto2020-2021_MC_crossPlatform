@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <button id="addChannel" class="btn btn-primary btn-addChannel floatingBtn p-0 shadow mb-5" type="button" data-bs-toggle="modal" data-bs-target="#addChannelModal">
+                <button id="addChannel" class="btn p-0 shadow mb-5" type="button" data-bs-toggle="modal" data-bs-target="#addChannelModal">
                     <img class="p-1" src="img/plus.svg" width="40px" alt="">
                 </button>
             </div>
@@ -76,6 +76,10 @@
                 <div id='map' class="mb-3 mx-3 shadow-lg bg-white rounded">
                     <button id="closeMapBtn" class="btn btn-lg bg-white">X</button>
                 </div>
+                <div id="fullscreenImageContainer" style="display: none;">
+                    <button class="btn" id="fullscreenBackBtn"><img src="img/arrow_left.svg" alt=""></button>
+                    <img class="position-absolute top-50 start-50 translate-middle" id="fullscreenImage" src="" alt="">
+                </div>
             </div>
 
             <!-- PROFILE -->
@@ -91,7 +95,7 @@
                     <div class="d-flex justify-content-center h-100">
                         <button id="changeProfilePicBtn" type="button" class="btn btn-primary btn-imgProfile">MODIFICA IMMAGINE</button>
                     </div>
-                    <div class="d-flex justify-content-center h-100 pt-5">
+                    <div class="d-flex justify-content-center align-items-center h-100 pt-5">
                         <h2>Nome:</h2>
                         <div id="nameProfile"></div>
                         <button type="button" class="btn btn-primary btn-channel me-1 p-0" data-bs-toggle="modal" data-bs-target="#modalEditName">
@@ -107,6 +111,7 @@
                             </div>
                             <div class="modal-body">
                                 <input type="text" class="form-control" id="inputEditName">
+                                <label for="inputEditName" style="color: red; display: none;"></label>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>

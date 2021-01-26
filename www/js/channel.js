@@ -42,6 +42,7 @@ function showPosts(posts){
         $("#posts").append(htmlPost);
     });
     $(".locationBtn").click(onShowLocation);
+    $(".postImage").click(showFullscreenImage);
     updateUserPictures(userSet);
     updatePostImages(postImages);
 }
@@ -257,4 +258,13 @@ function initMap(){
         center: [0,0],
         zoom: 9 // starting zoom
     });
+}
+
+function showFullscreenImage(){
+    $("#fullscreenImageContainer").show();
+    let srcImage = this.src;
+    $("#fullscreenImage").attr("src", srcImage);
+}
+function hideFullscreenImage(){
+    $("#fullscreenImageContainer").hide();
 }

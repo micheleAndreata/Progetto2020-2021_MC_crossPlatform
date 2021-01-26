@@ -25,6 +25,7 @@ function bindEvents(){
     $("#sendImage").click(onSendImage);
     $("#sendLocation").click(onSendLocation);
     $("#closeMapBtn").click(onCloseMap);
+    $("#fullscreenBackBtn").click(hideFullscreenImage);
 }
 
 function checkRegistration(){
